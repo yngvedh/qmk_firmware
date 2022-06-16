@@ -1,7 +1,6 @@
 SRC += xulkal.c \
     process_records.c \
-    custom_tap_dance.c \
-    timer_utils.c
+    custom_tap_dance.c
 
 # Some usual defaults
 MOUSEKEY_ENABLE         = no    # Mouse keys (+4700)
@@ -28,6 +27,6 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   SRC += custom_rgb.c
 endif
 
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += custom_oled.c
 endif
