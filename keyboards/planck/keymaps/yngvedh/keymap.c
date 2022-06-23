@@ -10,9 +10,9 @@
 
 #define CTL_TAB LCTL_T(KC_TAB)
 
-#define L_NUM MO(NUM_)
+#define L_NUM LT(NUM_, KC_SPC)
 #define L_MOVE MO(MOVE_)
-#define L_FUNC MO(FUNC_)
+#define L_FUNC LT(FUNC_, KC_APP)
 #define TGLCMAK TG(COLEMAK_)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
