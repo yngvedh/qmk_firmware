@@ -1,5 +1,7 @@
 #pragma once
 
+#define PERMISSIVE_HOLD
+
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)

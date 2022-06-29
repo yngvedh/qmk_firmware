@@ -10,6 +10,8 @@
                                 }
 #endif
 
+#define PERMISSIVE_HOLD
+
 /*
  * MIDI options
  */
