@@ -1,6 +1,6 @@
 #pragma once
 
-#define LAYOUT_REV "10"
+#define LAYOUT_REV "11"
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
@@ -39,7 +39,8 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-// Enable PERMISSIVE_HOLD to avoid the " c" problem
+// Enable PERMISSIVE_HOLD and  to avoid the " c" problem
 #define PERMISSIVE_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS
 
 #define FORCE_NKRO
