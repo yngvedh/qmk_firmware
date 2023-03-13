@@ -1,6 +1,6 @@
 #pragma once
 
-#define LAYOUT_REV "11"
+#define LAYOUT_REV "12"
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
