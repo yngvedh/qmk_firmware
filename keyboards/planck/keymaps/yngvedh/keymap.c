@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, V_____V,      _______,     L_FUNC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 	[MOVE_] = LAYOUT_planck_1x2uC(
 		_______, OE_MAC,  OE_WIN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PSCR, KC_DEL,
-		_______, AA_MAC,  AA_WIN,  KC_LALT, KC_LCTL, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX,
+		KC_CAPS, AA_MAC,  AA_WIN,  KC_LALT, KC_LCTL, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX,
 		_______, AE_MAC,  AE_WIN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, _______,
 		_______, _______, _______, _______, L_FUNC,       _______,     V_____V, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 	[FUNC_] = LAYOUT_planck_1x2uC(
