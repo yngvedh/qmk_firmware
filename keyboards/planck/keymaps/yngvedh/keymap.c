@@ -1,29 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#define V_____V _______
-
-#define QWERTY_ 0
-#define COLEMAK_ 1
-#define NUM_ 2
-#define MOVE_ 3
-#define FUNC_ 4
-
-#define L_NUM MO(NUM_)
-#define L_MOVE MO(MOVE_)
-#define L_FUNC MO(FUNC_)
-#define TGLCMAK TG(COLEMAK_)
-
-#define AE_WIN RALT(KC_Z)
-#define OE_WIN RALT(KC_L)
-#define AA_WIN RALT(KC_W)
-
-#define AE_MAC RALT(KC_QUOT)
-#define OE_MAC RALT(KC_O)
-#define AA_MAC RALT(KC_A)
-
-enum custom_keycodes {
-	SEND_REV = SAFE_RANGE
-};
+#include "print_revision.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[QWERTY_] = LAYOUT_planck_1x2uC(
@@ -52,15 +29,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, XXXXXXX,RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
 		_______, _______, _______, _______, V_____V,      _______,     V_____V, XXXXXXX, XXXXXXX, V_____V, XXXXXXX)
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-	if(keycode == SEND_REV && record->event.pressed)
-	{
-		SEND_STRING("Layout revision: ");
-		SEND_STRING(LAYOUT_REV);
-	}
-	return true;
-}
 
 
