@@ -4,14 +4,19 @@
 
 #define QWERTY_ 0
 #define COLEMAK_ 1
-#define NUM_ 2
-#define MOVE_ 3
-#define FUNC_ 4
+#define MAC_ 3
+#define NUM_ 4
+#define MOVE_WIN_ 5
+#define MOVE_MAC_ 6
+#define FUNC_ 7
 
 #define L_NUM MO(NUM_)
-#define L_MOVE MO(MOVE_)
+#define L_MOVE_WIN MO(MOVE_WIN_)
+#define L_MOVE_MAC MO(MOVE_MAC_)
 #define L_FUNC MO(FUNC_)
+
 #define TGLCMAK TG(COLEMAK_)
+#define TGLMAC TG(MAC_)
 
 #define AE_WIN RALT(KC_Z)
 #define OE_WIN RALT(KC_L)

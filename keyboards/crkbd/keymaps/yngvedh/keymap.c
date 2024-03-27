@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   L_NUM,  KC_SPC,    KC_LCTL,  L_MOVE, KC_LALT
+                                          KC_LGUI,   L_NUM,  KC_SPC,    KC_LCTL,L_MOVE_WIN, KC_LALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -57,13 +57,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [MOVE_] = LAYOUT_split_3x6_3(
+  [MOVE_WIN_] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,  OE_MAC,  OE_WIN, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME,   KC_UP,  KC_END, KC_PSCR,  KC_DEL,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME,   KC_UP,  KC_END, KC_PSCR,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS,  AA_MAC,  AA_WIN, KC_LALT, KC_LCTL, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX,
+      KC_CAPS, XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  AE_MAC,  AE_WIN, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_BSPC, XXXXXXX,  KC_DEL, KC_PGDN, _______,
+      _______, XXXXXXX,  AE_WIN,  OE_WIN,  AA_WIN, XXXXXXX,                      XXXXXXX, KC_BSPC, XXXXXXX,  KC_DEL, KC_PGDN, _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______,  L_FUNC, XXXXXXX,    _______, V_____V, _______
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [MOVE_MAC_] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_HOME,   KC_UP,  KC_END, KC_PSCR,  KC_DEL,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_CAPS, XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, XXXXXXX,  AE_MAC,  OE_MAC,  AA_MAC, XXXXXXX,                      XXXXXXX, KC_BSPC, XXXXXXX,  KC_DEL, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,  L_FUNC, XXXXXXX,    _______, V_____V, _______
                                       //`--------------------------'  `--------------------------'
@@ -92,32 +104,41 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 #define QWERTY_MASK (1 << QWERTY_)
 #define COLEMAK_MASK (1 << COLEMAK_)
+#define MAC_MASK (1 << MAC_)
 #define NUM_MASK (1 << NUM_)
-#define MOVE_MASK (1 << MOVE_)
+#define MOVE_WIN_MASK (1 << MOVE_WIN_)
+#define MOVE_MAC_MASK (1 << MOVE_MAC_)
 #define FUNC_MASK (1 << FUNC_)
 
-#define LAYERS_MASK (L_NUM | L_MOVE | L_FUNC)
+#define LAYERS_MASK (L_NUM | L_MOVE_WIN | L_MOVE_MAC | L_FUNC)
+void oled_render_revision(void) {
+    oled_write_P(PSTR("Revision: " LAYOUT_REV), false);
+}
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("L: "), false);
 
     if (layer_state & COLEMAK_MASK) oled_write_P(PSTR("COLEMAK"), false);
     else oled_write_P(PSTR("QWERTY"), false);
+    oled_write_P(PSTR("-"), false);
 
-    oled_write_P(PSTR(" - "), false);
+    if (layer_state & MAC_MASK) oled_write_P(PSTR("macOS"), false);
+    else oled_write_P(PSTR("Win"), false);
+    oled_write_P(PSTR("-"), false);
 
     switch (layer_state & LAYERS_MASK) {
         case NUM_MASK:
-            oled_write_ln_P(PSTR("Numeric"), false);
+            oled_write_ln_P(PSTR("Num"), false);
             break;
-        case MOVE_MASK:
-            oled_write_ln_P(PSTR("Navigation"), false);
+        case MOVE_WIN_MASK:
+        case MOVE_MAC_MASK:
+            oled_write_ln_P(PSTR("Nav"), false);
             break;
         case FUNC_MASK:
-            oled_write_ln_P(PSTR("Functions"), false);
+            oled_write_ln_P(PSTR("Func"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("None"), false);
+            oled_write_ln_P(PSTR("Base"), false);
             break;
     }
 }
@@ -179,6 +200,7 @@ bool oled_task_user(void) {
     if (true/*is_keyboard_master()*/) {
         oled_render_layer_state();
         oled_render_keylog();
+        oled_render_revision();
     } else {
         oled_render_logo();
     }
